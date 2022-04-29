@@ -23,9 +23,9 @@ def question2a():
     """
       Prefer the close exit (+1), risking the cliff (-10).
     """
-    answerDiscount = None
-    answerNoise = None
-    answerLivingReward = None
+    answerDiscount = 0.2
+    answerNoise = 0.0001
+    answerLivingReward = 0.0001
     return answerDiscount, answerNoise, answerLivingReward
     # If not possible, return 'NOT POSSIBLE'
 
@@ -33,9 +33,9 @@ def question2b():
     """
       Prefer the close exit (+1), but avoiding the cliff (-10).
     """
-    answerDiscount = None
-    answerNoise = None
-    answerLivingReward = None
+    answerDiscount = 0.199999
+    answerNoise = 0.199999
+    answerLivingReward = -0.99999
     return answerDiscount, answerNoise, answerLivingReward
     # If not possible, return 'NOT POSSIBLE'
 
@@ -43,9 +43,9 @@ def question2c():
     """
       Prefer the distant exit (+10), risking the cliff (-10).
     """
-    answerDiscount = None
-    answerNoise = None
-    answerLivingReward = None
+    answerDiscount = 0.89999999
+    answerNoise = 0.00000000001
+    answerLivingReward = 0.00000001
     return answerDiscount, answerNoise, answerLivingReward
     # If not possible, return 'NOT POSSIBLE'
 
@@ -53,9 +53,9 @@ def question2d():
     """
       Prefer the distant exit (+10), avoiding the cliff (-10).
     """
-    answerDiscount = None
-    answerNoise = None
-    answerLivingReward = None
+    answerDiscount = 0.8999999
+    answerNoise = 0.3999999
+    answerLivingReward = 0.00000001
     return answerDiscount, answerNoise, answerLivingReward
     # If not possible, return 'NOT POSSIBLE'
 
@@ -63,9 +63,9 @@ def question2e():
     """
       Avoid both exits and the cliff (so an episode should never terminate).
     """
-    answerDiscount = None
-    answerNoise = None
-    answerLivingReward = None
+    answerDiscount = 1
+    answerNoise = 0.29999999
+    answerLivingReward = 88
     return answerDiscount, answerNoise, answerLivingReward
     # If not possible, return 'NOT POSSIBLE'
 
