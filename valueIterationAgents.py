@@ -26,6 +26,7 @@
 # Pieter Abbeel (pabbeel@cs.berkeley.edu).
 
 
+from json.encoder import INFINITY
 import mdp, util
 
 from learningAgents import ValueEstimationAgent
@@ -65,6 +66,19 @@ class ValueIterationAgent(ValueEstimationAgent):
           value iteration, V_k+1(...) depends on V_k(...)'s.
         """
         "*** YOUR CODE HERE ***"
+        ss = self.mdp.getStates()
+        for _ in range(0, self.iterations):
+          val = self.values.copy()
+          valuesCopy = val
+          for s in ss:
+            fv = None
+            for act in self.mdp.getPossibleActions(s):
+              fv = self.computeQValueFromValues(s,act) if fv == None or fv < self.computeQValueFromValues(s,act) else fv
+            valuesCopy[s] = 0 if fv == None else fv 
+          self.values = valuesCopy
+
+        
+
 
     def getValue(self, state):
         """
@@ -78,7 +92,15 @@ class ValueIterationAgent(ValueEstimationAgent):
           value function stored in self.values.
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        val = 0
+        transitionFunction = self.mdp.getTransitionStatesAndProbs(state,action)
+        for alpha in transitionFunction:
+            nextState = alpha[0]
+            probability = alpha[1]
+            sub_sub_val = self.mdp.getReward(state, action, nextState) + (self.discount * self.values[nextState])
+            sub_val = probability * (sub_sub_val)
+            val = val + sub_val      
+        return val
 
     def computeActionFromValues(self, state):
         """
@@ -90,7 +112,13 @@ class ValueIterationAgent(ValueEstimationAgent):
           terminal state, you should return None.
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        possibleActions = self.mdp.getPossibleActions(state)
+        val, res = None, None
+        for act in possibleActions:
+            if val == None or self.computeQValueFromValues(state, act) > val:
+                val = self.computeQValueFromValues(state, act)
+                res = act
+        return res
 
     def getPolicy(self, state):
         return self.computeActionFromValues(state)
